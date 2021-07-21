@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -21,13 +21,17 @@ allprojects {
 
 apply plugin: 'com.android.library'
 
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
 android {
-    compileSdkVersion 25
-    buildToolsVersion "23.0.3"
+    compileSdkVersion safeExtGet('compileSdkVersion', 25)
+    buildToolsVersion safeExtGet('buildToolsVersion', '23.0.3')
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 25
+        minSdkVersion safeExtGet('minSdkVersion', 16)
+        targetSdkVersion safeExtGet('targetSdkVersion', 25)
         versionCode 1
         versionName "1.0"
     }
